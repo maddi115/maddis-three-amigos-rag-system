@@ -11,6 +11,22 @@ Probability-stasis filters retrieval results by cross-checking multiple scoring 
 - High mean + low variance = stable, reliable result
 - Filters out chunks with contradictory signals
 
+## Architecture
+
+- **Vector Database**: ChromaDB (persistent storage with HNSW indexing)
+- **Embeddings**: Sentence-Transformers (`all-MiniLM-L6-v2` by default)
+- **Similarity Metric**: Cosine similarity
+- **Cross-Reference Scoring**:
+  - Semantic similarity (via embeddings)
+  - Keyword overlap (lexical matching)
+  - Length-based relevance
+- **Filtering**: Probability-stasis score calculation with variance threshold
+
+### Technical Stack
+```python
+chromadb>=1.1.1           # Vector database
+sentence-transformers>=5.1.1  # Embedding models
+numpy>=2.0.0              # Numerical computations
 ## Installation
 ```bash
 pip install -e .
