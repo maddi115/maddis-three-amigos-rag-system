@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# ChromaDB databases
+*chroma_db/
+*.db
+*.sqlite3
+
+# Data files
+data/*.csv
+data/*.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test_*.py
+compare_*.py
+realistic_test.py
+my_first_library_test.py
+
+# Egg info
+*.egg-info/
+dist/
+build/
