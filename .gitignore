@@ -1,39 +1,30 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
+# Virtual environment
 venv/
 env/
-ENV/
 
-# ChromaDB databases
-*chroma_db/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# ChromaDB data
+agentmaddi_chroma_db/
 *.db
-*.sqlite3
 
-# Data files
-data/*.csv
-data/*.txt
+# Large data files (optional - uncomment if CSV is huge)
+# *.csv
 
-# IDE
+# IDE files
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# OS
+# OS files
 .DS_Store
-Thumbs.db
 
-# Test files
-test_*.py
-compare_*.py
-realistic_test.py
-my_first_library_test.py
-
-# Egg info
-*.egg-info/
-dist/
-build/
+# All test databases
+my_test_db/
+test_chroma_db/
+structured_chroma_db/
+test_json_db/
+test_raw_db/
+twitch_chroma_db/
