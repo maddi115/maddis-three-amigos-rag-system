@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Probability-Stasis RAG
 
 A RAG (Retrieval-Augmented Generation) system that uses probability-stasis filtering to ensure stable, reliable search results.
@@ -80,3 +81,6 @@ Author
 agentmaddi
 License
 MIT
+=======
+# maddis-rag-system
+>>>>>>> 2c935add9e37bf8a54c4b3fa6eed742fe270d1e3
