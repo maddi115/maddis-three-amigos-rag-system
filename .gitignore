@@ -24,3 +24,12 @@ Thumbs.db
 
 # Test data
 *.log
+
+# Test databases
+my_test_db/
+structured_chroma_db/
+test_chroma_db/
+test_json_db/
+test_raw_db/
+twitch_chroma_db/
+*:Zone.Identifier
