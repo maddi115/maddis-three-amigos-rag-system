@@ -1,86 +1,139 @@
-<<<<<<< HEAD
-# Probability-Stasis RAG
+# The Three Amigos RAG System
 
-A RAG (Retrieval-Augmented Generation) system that uses probability-stasis filtering to ensure stable, reliable search results.
+A multi-method RAG (Retrieval-Augmented Generation) system featuring three complementary search algorithms working together for optimal retrieval.
 
-## What is Probability-Stasis?
+## The Three Amigos 🔥🎯🔬
 
-Probability-stasis filters retrieval results by cross-checking multiple scoring methods (semantic similarity, keyword matching, length scoring), keeping only chunks where **all signals consistently agree** they're relevant. This reduces hallucination and improves answer quality.
+### 1. 🔥 Gradient Proximity Search (Chaining Algorithm)
+Novel algorithm that finds rare anchor words and radiates outward bidirectionally, with exponential strength decay and boosting when finding related terms.
 
-**Formula:** `StasisScore = mean(p_i) / (1 + variance(p_i))`
+**How it works:**
+- Identifies rarest query word as anchor
+- Radiates left/right with decaying strength
+- **BOOSTS strength** when finding other query words (chaining effect)
+- Scores by physical proximity of terms in text
+- Perfect for finding clustered concepts
 
-- High mean + low variance = stable, reliable result
-- Filters out chunks with contradictory signals
+**Best for:** Finding specific term combinations, clustered discussions
+
+### 2. 🎯 Vector Search (Semantic Similarity)
+Pure semantic search using sentence transformers for meaning-based retrieval.
+
+**How it works:**
+- Encodes query into embedding vector
+- Finds semantically similar documents
+- Cosine similarity scoring
+- Understanding intent, not just keywords
+
+**Best for:** Understanding meaning, sentiment, conceptual queries
+
+### 3. 🔬 Stasis (Probability Filtering)
+Cross-references multiple scoring methods to find stable, reliable results.
+
+**How it works:**
+- Retrieves candidates from vector database
+- Cross-references: semantic similarity, keyword overlap, length scoring
+- Calculates StasisScore = `mean(p_i) / (1 + variance(p_i))`
+- Filters unstable results (high variance)
+
+**Best for:** High-confidence results, reducing hallucination
 
 ## Installation
 ```bash
 pip install -e .
+```
 
+## Quick Start
 
-Quick Start
-
-
-from probability_stasis_rag import ProbabilityStasisRAG
+### Compare All Three Methods
+```python
+from probability_stasis_rag import ProbabilityStasisRAG, VectorSearch, GradientProximitySearch
 
 # Initialize
 rag = ProbabilityStasisRAG(
     collection_name="my_docs",
+    persist_directory="./chroma_db",
     stasis_threshold=0.05,
-    top_k=5
+    top_k=3
 )
 
-# Add documents
-documents = [
-    "Python is a programming language.",
-    "Machine learning uses neural networks.",
-    "RAG combines retrieval with generation.",
-]
-rag.add_documents(documents)
+# Get documents
+collection = rag.collection
+all_docs = collection.get()
+documents = all_docs['documents']
 
-# Query with filtering
-results = rag.query("What is Python?", use_cross_reference=True)
+# Method 1: Gradient Proximity (Chaining)
+gradient = GradientProximitySearch(documents)
+gradient_results = gradient.search("your query", top_k=3)
 
-# Display results
-rag.display_results(results, "What is Python?")
+# Method 2: Vector Search (Semantic)
+vector = VectorSearch(rag.collection, rag.embedder)
+vector_results = vector.search("your query", top_k=3)
 
+# Method 3: Stasis (Probability Filtering)
+stasis_results = rag.query("your query", use_cross_reference=True)
+```
 
-Command-Line Usage
+### Command-Line Comparison Tool
+```bash
+python3 query_all.py "What food does agentmaddi like?"
+```
 
-python3 examples/cli_query.py "your question here"
+**Output includes:**
+- 🔥 Gradient results with confidence tiers (high/medium/low)
+- 🎯 Vector semantic matches
+- 🔬 Stasis filtered results
+- Beautiful formatted output with threading visualization
 
-Optional: Create an alias
-Add to ~/.bashrc:
+## Architecture
 
-alias ask="python3 ~/probability-stasis-rag/examples/cli_query.py"
+**Vector Database:** ChromaDB  
+**Embeddings:** Sentence-Transformers (all-MiniLM-L6-v2)  
+**No LLM required** - Pure retrieval, zero API costs
 
-Then use: ask "your question"
-Architecture
+## Features
 
-Vector Database: ChromaDB
-Embeddings: Sentence-Transformers (all-MiniLM-L6-v2)
-No LLM required - Pure retrieval, zero API costs
+✅ **Three complementary search methods** for different use cases  
+✅ **Beautiful formatted output** with confidence scoring  
+✅ **Threading visualization** (→→) for conversation flow  
+✅ **Anchor word highlighting** (>>>word<<<)  
+✅ **Rarity-based boosting** in Gradient search  
+✅ **Cross-reference validation** in Stasis  
+✅ **No API costs** - runs entirely locally
 
-How It Works
+## Use Cases
 
-Retrieves top N candidates from vector database
-Cross-references using: semantic similarity, keyword overlap, length scoring
-Calculates StasisScore for each result
-Filters out unstable results (high variance)
-Returns only stable, cross-verified chunks
+- 📚 Documentation Search
+- 💬 Conversational Data Analysis
+- 🔍 Code RAG
+- ❓ Q&A Systems
+- 🔬 Research Tools
 
-Use Cases
+## Advanced: Gradient Proximity Deep Dive
 
-Documentation Search
-Code RAG
-Q&A Systems
-Research Tools
+For detailed analysis with all results:
+```bash
+python3 newv2Gradient_Proximity_Search_Rarity_Based_Chaining.py "your query"
+```
 
-Theory
-Probability-stasis isolates situations where probability remains stable across multiple checks, filtering out everything that doesn't fit consistent probability patterns.
-Author
+**Features:**
+- Narrative summary of findings
+- Confidence distribution (high/medium/low)
+- Complete result set with threading
+- Score explanations
+
+## Theory
+
+**Gradient Proximity:** Chains discoveries through text using exponential decay and rarity-based boosting, naturally prioritizing documents where query terms cluster together.
+
+**Vector Search:** Pure semantic similarity using learned embeddings to understand meaning beyond keywords.
+
+**Probability Stasis:** Isolates situations where probability remains stable across multiple scoring methods, filtering contradictory signals.
+
+## Author
+
 agentmaddi
-License
+
+## License
+
 MIT
-=======
-# maddis-rag-system
->>>>>>> 2c935add9e37bf8a54c4b3fa6eed742fe270d1e3
